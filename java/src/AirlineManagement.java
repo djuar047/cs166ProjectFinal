@@ -1090,7 +1090,7 @@ public static void feature14(AirlineManagement esql) {
 
 // feature 15 -----------------------------------------------------------------------------------------
 
-public static void feature15(AirlineManagement esql) {
+public static void feature18(AirlineManagement esql) {
     try {
         System.out.println("\nSubmit Maintenance Request");
         System.out.print("Enter Pilot ID: ");
@@ -1199,7 +1199,7 @@ public static void feature17(AirlineManagement esql) {
 
 // feature 18 -----------------------------------------------------------------------------------------
 
-public static void feature18(AirlineManagement esql) {
+public static void feature15(AirlineManagement esql) {
     try {
         // plane ID input
         System.out.print("Enter Plane ID: ");
