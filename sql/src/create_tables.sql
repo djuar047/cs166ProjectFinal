@@ -82,7 +82,7 @@ CREATE TABLE Technician (
 
 -- Repair Table with SERIAL for auto-increment automatically generates unique IDs
 CREATE TABLE Repair (
-    RepairID INTEGER PRIMARY KEY,
+    RepairID SERIAL PRIMARY KEY,
     PlaneID TEXT,
     RepairCode TEXT,
     RepairDate DATE,
@@ -99,7 +99,7 @@ CREATE TABLE Pilot (
 
 -- MaintenanceRequest Table with SERIAL for auto-increment automatically generates unique IDs
 CREATE TABLE MaintenanceRequest (
-    RequestID INTEGER PRIMARY KEY,
+    RequestID SERIAL PRIMARY KEY,
     PlaneID TEXT,
     RepairCode TEXT,
     RequestDate DATE,

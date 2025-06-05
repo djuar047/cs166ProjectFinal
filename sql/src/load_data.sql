@@ -20,3 +20,6 @@
 
 \copy MaintenanceRequest FROM '/home/csmajs/djuar047/cs166_project_phase3/data/MaintenanceRequest.csv' WITH DELIMITER ',' CSV HEADER; 
 
+-- Duplicates error
+SELECT setval('repair_repairid_seq', (SELECT MAX(RepairID) FROM Repair));
+SELECT setval('maintenancerequest_requestid_seq', (SELECT COALESCE(MAX(requestid), 1) FROM MaintenanceRequest));
