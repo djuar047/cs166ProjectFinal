@@ -1090,39 +1090,57 @@ public static void feature14(AirlineManagement esql) {
 
 // feature 15 -----------------------------------------------------------------------------------------
 
-public static void feature18(AirlineManagement esql) {
+
+public static void feature15(AirlineManagement esql) {
     try {
-        System.out.println("\nSubmit Maintenance Request");
-        System.out.print("Enter Pilot ID: ");
-        String pilotID = in.readLine().trim();
+        // plane ID input
         System.out.print("Enter Plane ID: ");
-        String planeID = in.readLine().trim();
-        System.out.print("Enter Repair Code: ");
-        String repairCode = in.readLine().trim();
+        String planeID = in.readLine();
+        planeID = "'" + planeID + "'";
 
-        // Default to today's date
-        String requestDate = java.time.LocalDate.now().toString();
+        // start date
+        System.out.print("Enter Start Date (YYYY-MM-DD): ");
+        String startDate = in.readLine();
+        startDate = "'" + startDate + "'";
 
-        esql.beginTransaction();
+        // end date
+        System.out.print("Enter End Date (YYYY-MM-DD): ");
+        String endDate = in.readLine();
+        endDate = "'" + endDate + "'";
 
-        // Insert maintenance request
-        String insertQuery = String.format(
-            "INSERT INTO MaintenanceRequest (PlaneID, RepairCode, RequestDate, PilotID) " +
-            "VALUES ('%s', '%s', '%s', '%s')",
-            planeID.replace("'", "''"),
-            repairCode.replace("'", "''"),
-            requestDate.replace("'", "''"),
-            pilotID.replace("'", "''")
-        );
-        esql.executeUpdate(insertQuery);
+        // list all the dates and the codes for repair for a plane within the range specified
+        String query = "SELECT RepairDate, RepairCode " +
+                       "FROM Repair " +
+                       "WHERE PlaneID = " + planeID + 
+                       " AND RepairDate BETWEEN " + startDate + " AND " + endDate + 
+                       " ORDER BY RepairDate;";
 
-        esql.commit();
-        System.out.println("Maintenance request submitted successfully!");
+         // output data
+        esql.executeQueryAndPrintResult(query);
+
     } catch (Exception e) {
-        System.err.println("Error submitting maintenance request: " + e.getMessage());
-        esql.rollback();
+        System.err.println("Error: " + e.getMessage());
     }
 }
+
+public void beginTransaction() throws SQLException {
+    _connection.setAutoCommit(false);
+}
+
+public void commit() throws SQLException {
+    _connection.commit();
+    _connection.setAutoCommit(true);
+}
+
+public void rollback() {
+    try {
+        _connection.rollback();
+        _connection.setAutoCommit(true);
+    } catch (SQLException e) {
+        System.err.println("Rollback failed: " + e.getMessage());
+    }
+}
+
 
 // feature 16 -----------------------------------------------------------------------------------------
 
@@ -1199,53 +1217,37 @@ public static void feature17(AirlineManagement esql) {
 
 // feature 18 -----------------------------------------------------------------------------------------
 
-public static void feature15(AirlineManagement esql) {
+public static void feature18(AirlineManagement esql) {
     try {
-        // plane ID input
+        System.out.println("\nSubmit Maintenance Request");
+        System.out.print("Enter Pilot ID: ");
+        String pilotID = in.readLine().trim();
         System.out.print("Enter Plane ID: ");
-        String planeID = in.readLine();
-        planeID = "'" + planeID + "'";
+        String planeID = in.readLine().trim();
+        System.out.print("Enter Repair Code: ");
+        String repairCode = in.readLine().trim();
 
-        // start date
-        System.out.print("Enter Start Date (YYYY-MM-DD): ");
-        String startDate = in.readLine();
-        startDate = "'" + startDate + "'";
+        // Default to today's date
+        String requestDate = java.time.LocalDate.now().toString();
 
-        // end date
-        System.out.print("Enter End Date (YYYY-MM-DD): ");
-        String endDate = in.readLine();
-        endDate = "'" + endDate + "'";
+        esql.beginTransaction();
 
-        // list all the dates and the codes for repair for a plane within the range specified
-        String query = "SELECT RepairDate, RepairCode " +
-                       "FROM Repair " +
-                       "WHERE PlaneID = " + planeID + 
-                       " AND RepairDate BETWEEN " + startDate + " AND " + endDate + 
-                       " ORDER BY RepairDate;";
+        // Insert maintenance request
+        String insertQuery = String.format(
+            "INSERT INTO MaintenanceRequest (PlaneID, RepairCode, RequestDate, PilotID) " +
+            "VALUES ('%s', '%s', '%s', '%s')",
+            planeID.replace("'", "''"),
+            repairCode.replace("'", "''"),
+            requestDate.replace("'", "''"),
+            pilotID.replace("'", "''")
+        );
+        esql.executeUpdate(insertQuery);
 
-         // output data
-        esql.executeQueryAndPrintResult(query);
-
+        esql.commit();
+        System.out.println("Maintenance request submitted successfully!");
     } catch (Exception e) {
-        System.err.println("Error: " + e.getMessage());
-    }
-}
-
-public void beginTransaction() throws SQLException {
-    _connection.setAutoCommit(false);
-}
-
-public void commit() throws SQLException {
-    _connection.commit();
-    _connection.setAutoCommit(true);
-}
-
-public void rollback() {
-    try {
-        _connection.rollback();
-        _connection.setAutoCommit(true);
-    } catch (SQLException e) {
-        System.err.println("Rollback failed: " + e.getMessage());
+        System.err.println("Error submitting maintenance request: " + e.getMessage());
+        esql.rollback();
     }
 }
 
