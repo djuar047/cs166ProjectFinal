@@ -635,7 +635,7 @@ public class AirlineManagement {
         System.out.print("Enter Flight Number: ");
         String flightNumber = in.readLine();
 
-        System.out.print("Enter Flight Date (YYYY-MM-DD): ");
+        System.out.print("Enter Flight Date (M/D/YY): ");
         String flightDate = in.readLine();
 
          String instanceQuery = String.format(
@@ -670,7 +670,7 @@ public class AirlineManagement {
         String flightNumber = in.readLine();
         flightNumber = "'" + flightNumber + "'";
 
-        System.out.print("Enter Flight Date (YYYY-MM-DD): ");
+        System.out.print("Enter Flight Date (M/D/YY): ");
         String flightDate = in.readLine();
         flightDate = "'" + flightDate + "'";
 
@@ -696,7 +696,7 @@ public class AirlineManagement {
    // feature 4 -----------------------------------------------------------------------------------------
    public static void feature4(AirlineManagement esql) {
       try {
-        System.out.print("Enter Flight Date (YYYY-MM-DD): ");
+        System.out.print("Enter Flight Date (M/D/YY): ");
         String flightDate = in.readLine();
         flightDate = "'" + flightDate + "'";
 
@@ -716,7 +716,7 @@ public class AirlineManagement {
         flightNumber = "'" + flightNumber + "'";  // surround with single quotes for SQL
 
         //FlightDate user input
-        System.out.print("Enter Flight Date (YYYY-MM-DD): ");
+        System.out.print("Enter Flight Date (M/D/YY): ");
         String flightDate = in.readLine();
         flightDate = "'" + flightDate + "'";
 
@@ -877,9 +877,9 @@ public static void feature9(AirlineManagement esql) {
     try {
         System.out.print("\nEnter Flight Number: ");
         String flightNum = in.readLine();
-        System.out.print("Enter Start Date (YYYY-MM-DD): ");
+        System.out.print("Enter Start Date (M/D/YY): ");
         String startDate = in.readLine();
-        System.out.print("Enter End Date (YYYY-MM-DD): ");
+        System.out.print("Enter End Date (M/D/YY): ");
         String endDate = in.readLine();
         
         String query = String.format(
